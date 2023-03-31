@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ServiceCenter.Web.Api.Database;
 using ServiceCenter.Web.Api.Models;
 
@@ -37,13 +38,26 @@ public class ServiceRepository : IServiceRepository
         return service;
     }
 
-    public ValueTask<Service> UpdateServiceAsync(Service service)
+    public async ValueTask<Service> UpdateServiceAsync(Service service)
     {
-        throw new NotImplementedException();
+        this.context.Entry(service).State = EntityState.Modified;
+        await this.context.SaveChangesAsync();
+        
+        this.logger.LogInformation("Service {ServiceId} updated", service.Id);
+
+        return service;
     }
 
-    public ValueTask<Service> DeleteServiceAsync(Guid id)
+    public async ValueTask<Service> DeleteServiceAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var service = await this.context.Services.FindAsync(id);
+        if (service == null)
+        {
+            return null;
+        }
+        this.context.Entry(service).State = EntityState.Deleted;
+        await this.context.SaveChangesAsync();
+
+        return service;
     }
 }

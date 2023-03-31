@@ -49,6 +49,33 @@ public class ServicesController : ControllerBase
         return Created($"/api/services/{createdService.Id}", 
             createdService);
     }
+    
+    [HttpPut]
+    public async ValueTask<IActionResult> PutService([FromBody] Service service)
+    {
+        if (service == null)
+        {
+            return this.BadRequest();
+        }
+        
+        var updatedService = 
+            await this.serviceRepository.UpdateServiceAsync(service);
+
+        return Ok(updatedService);
+    }
+   
+    [HttpDelete("{id}")]
+    public async ValueTask<IActionResult> DeleteService(Guid id)
+    {
+        var deletedService = 
+            await this.serviceRepository.DeleteServiceAsync(id);
+        if (deletedService == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(deletedService);
+    }
 
 
 }
