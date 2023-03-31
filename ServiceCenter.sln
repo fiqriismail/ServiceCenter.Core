@@ -1,8 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceCenter.Web.Api", "ServiceCenter.Web.Api\ServiceCenter.Web.Api.csproj", "{C4FB1BD9-919A-4B62-9C59-08D73371B9CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4FB1BD9-919A-4B62-9C59-08D73371B9CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4FB1BD9-919A-4B62-9C59-08D73371B9CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4FB1BD9-919A-4B62-9C59-08D73371B9CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4FB1BD9-919A-4B62-9C59-08D73371B9CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
