@@ -1,4 +1,5 @@
 using ServiceCenter.Web.Api.Database;
+using ServiceCenter.Web.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ServiceDbContext>();
+
+builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 
 var app = builder.Build();
 
