@@ -4,7 +4,7 @@ using ServiceCenter.Web.Api.Models;
 
 namespace ServiceCenter.Web.Api.Services;
 
-public class ServiceRepository : IServiceRepository
+public partial class ServiceRepository : IServiceRepository
 {
     private readonly ServiceDbContext context;
     private readonly ILogger<ServiceRepository> logger;
@@ -28,6 +28,8 @@ public class ServiceRepository : IServiceRepository
 
     public async ValueTask<Service> InsertServiceAsync(Service service)
     {
+       ValidateOnInsert(service);
+        
         service.Id = Guid.NewGuid();
         
         await this.context.Services.AddAsync(service);

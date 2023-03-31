@@ -38,16 +38,27 @@ public class ServicesController : ControllerBase
     [HttpPost]
     public async ValueTask<IActionResult> PostService([FromBody] Service service)
     {
-        if (service == null)
+        try
         {
-            return this.BadRequest();
-        }
-        
-        var createdService = 
-            await this.serviceRepository.InsertServiceAsync(service);
+            if (service == null)
+            {
+                return this.BadRequest();
+            }
 
-        return Created($"/api/services/{createdService.Id}", 
-            createdService);
+            var createdService =
+                await this.serviceRepository.InsertServiceAsync(service);
+
+            return Created($"/api/services/{createdService.Id}",
+                createdService);
+        }
+        catch (ArgumentNullException ex)
+        {
+            return this.BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return this.BadRequest(ex.Message);
+        }
     }
     
     [HttpPut]
