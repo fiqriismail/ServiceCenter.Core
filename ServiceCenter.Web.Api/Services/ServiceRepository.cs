@@ -20,10 +20,10 @@ public class ServiceRepository : IServiceRepository
         return this.context.Services.AsQueryable();
     }
 
-    public ValueTask<Service> SelectServiceAsync(Guid id)
+    public async ValueTask<Service> SelectServiceAsync(Guid id)
     {
-        throw new NotImplementedException();
-    }
+        return await this.context.Services.FindAsync(id);
+    }   
 
     public async ValueTask<Service> InsertServiceAsync(Service service)
     {

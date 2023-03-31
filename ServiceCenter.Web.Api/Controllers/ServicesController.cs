@@ -22,6 +22,18 @@ public class ServicesController : ControllerBase
         var services = servicesQuery.ToList();
         return this.Ok(services);
     }
+    
+    [HttpGet("{id}")]
+    public async ValueTask<IActionResult> GetService(Guid id)
+    {
+        var service = await this.serviceRepository.SelectServiceAsync(id);
+        if (service == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(service);
+    }
 
     [HttpPost]
     public async ValueTask<IActionResult> PostService([FromBody] Service service)
