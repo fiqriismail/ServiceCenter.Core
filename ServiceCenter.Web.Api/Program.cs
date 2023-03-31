@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ServiceDbContext>();
 
-builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
+AddServices(builder);
 
 var app = builder.Build();
 
@@ -30,3 +30,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void AddServices(WebApplicationBuilder webApplicationBuilder)
+{
+    webApplicationBuilder.Services.AddTransient<IServiceRepository, ServiceRepository>();
+    webApplicationBuilder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+    webApplicationBuilder.Services.AddTransient<IManagerRepository, ManagerRepository>();
+    webApplicationBuilder.Services.AddTransient<IJobRepository, JobRepository>();
+    webApplicationBuilder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
+}
