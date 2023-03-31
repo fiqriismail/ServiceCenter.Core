@@ -67,7 +67,7 @@ public class EmployeesController : ControllerBase
       return Ok(updatedEmployee);
    }
    
-   [HttpDelete]
+   [HttpDelete("{id}")]
    public async ValueTask<IActionResult> DeleteEmployee(Guid id)
    {
       var employee = await this.employeeRepository.SelectEmployeeAsync(id);
