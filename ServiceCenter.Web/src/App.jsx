@@ -1,11 +1,11 @@
 import React from "react";
 
-import MainLayout from "./components/Layout/MainLayout";
+import ServiceHome from "./components/Service/ServiceHome";
 
 function App() {
 
   return (
-    <MainLayout />
+    <ServiceHome />
   )
 }
 

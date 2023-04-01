@@ -2,9 +2,14 @@ import React from "react";
 
 import NavBar from "./NavBar";
 
-function MainLayout() {
+function MainLayout(props) {
     return (
-        <NavBar />
+        <>
+            <NavBar />
+            <div className="container">
+                {props.children}
+            </div>
+        </>
     )
 }
 
