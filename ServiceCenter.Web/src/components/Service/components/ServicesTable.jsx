@@ -37,7 +37,7 @@ function ServicesTable() {
                 </tr>
             </thead>
             <tbody>
-                {tableItems.length > 0 ? tableItems : "Loading data..."}
+                {tableItems.length > 0 ? tableItems : <tr><td>Loading...</td></tr>}
             </tbody>
         </table>
     )
