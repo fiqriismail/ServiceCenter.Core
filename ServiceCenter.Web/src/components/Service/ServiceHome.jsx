@@ -1,11 +1,13 @@
 import React from "react";
 
 import MainLayout from "../Layout/MainLayout";
+import ServicesTable from "./components/ServicesTable";
 
 function ServiceHome() {
     return (
         <MainLayout>
-            <h1>Service Home</h1>
+            <h3 className="mt-2">Available Services</h3>
+            <ServicesTable />
         </MainLayout>
     )
 }

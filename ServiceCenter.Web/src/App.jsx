@@ -5,7 +5,10 @@ import ServiceHome from "./components/Service/ServiceHome";
 function App() {
 
   return (
-    <ServiceHome />
+    <>
+      <ServiceHome />
+    </>
+
   )
 }
 
