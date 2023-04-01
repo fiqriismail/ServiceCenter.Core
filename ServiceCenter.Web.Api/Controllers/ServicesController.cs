@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ServiceCenter.Web.Api.Models;
 using ServiceCenter.Web.Api.Services;

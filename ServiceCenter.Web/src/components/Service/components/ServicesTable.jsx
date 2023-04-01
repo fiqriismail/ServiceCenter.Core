@@ -1,29 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import ServicesTableItem from "./ServicesTableItem";
 
 function ServicesTable() {
 
-    const services = [
-        {
-            "id": "25cfe1e8-a764-46e5-8ef6-7b74ffc37c56",
-            "title": "Jeep Body Wash",
-            "description": "Small jeeps only",
-            "serviceType": 0
-        },
-        {
-            "id": "0b64c39f-c939-491c-bd00-0e03654de13e",
-            "title": "Cars oil changinh",
-            "description": "All cars",
-            "serviceType": 1
-        },
-        {
-            "id": "927ea1ef-cf97-4569-8700-485b2720318c",
-            "title": "Jeeps oil changinh",
-            "description": "All jeeps",
-            "serviceType": 1
-        }
-    ];
+    const [services, setService] = useState([]);
+
+    // fetch data from api
+    const fetchServiceData = () => {
+        const apiUrl = "http://localhost:5196/api/services";
+        return fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => setService(data));
+    }
+    useEffect(() => {
+        fetchServiceData();
+    }, []);
 
     const tableItems = services.map(service => {
         return (
@@ -45,7 +37,7 @@ function ServicesTable() {
                 </tr>
             </thead>
             <tbody>
-                {tableItems}
+                {tableItems.length > 0 ? tableItems : "Loading data..."}
             </tbody>
         </table>
     )

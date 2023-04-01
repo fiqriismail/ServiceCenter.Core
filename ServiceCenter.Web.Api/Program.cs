@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using ServiceCenter.Web.Api.Database;
 using ServiceCenter.Web.Api.Services;
 
@@ -12,6 +13,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ServiceDbContext>();
 
+builder.Services.AddCors(
+        options => options.AddDefaultPolicy(
+        builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+    ));
+
 AddServices(builder);
 
 var app = builder.Build();
@@ -24,6 +32,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
