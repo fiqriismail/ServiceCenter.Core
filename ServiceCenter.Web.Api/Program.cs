@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ServiceCenter.Web.Api.Database;
@@ -16,6 +17,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ServiceDbContext>();
 builder.Services.AddDbContext<UsersContext>();
+
+builder.Services.AddIdentityCore<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<UsersContext>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
