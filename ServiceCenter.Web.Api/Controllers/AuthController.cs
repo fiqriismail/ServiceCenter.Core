@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ServiceCenter.Web.Api.AuthService;
 using ServiceCenter.Web.Api.Models;
 
 namespace ServiceCenter.Web.Api.Controllers;
@@ -9,10 +10,12 @@ namespace ServiceCenter.Web.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly UserManager<IdentityUser> userManager;
+    private readonly TokenService tokenService;
     
-    public AuthController(UserManager<IdentityUser> userManager)
+    public AuthController(UserManager<IdentityUser> userManager, TokenService tokenService)
     {
         this.userManager = userManager;
+        this.tokenService = tokenService;
     }
     
     [HttpPost("register")]
@@ -33,4 +36,33 @@ public class AuthController : ControllerBase
         
         return this.Ok();
     }
+
+    [HttpPost("login")]
+    public async ValueTask<ActionResult<AuthResponse>> Authenticate(
+        [FromBody] AuthRequest request)
+    {
+        var managedUser = await this.userManager.FindByEmailAsync(request.Email);
+        if (managedUser == null)
+        {
+            return BadRequest(new { message = "Invalid credentials" });
+        }
+        
+        var passwordIsValid = await this.userManager.CheckPasswordAsync(
+            managedUser, request.Password);
+
+        if (!passwordIsValid)   
+        {
+            return BadRequest(new { message = "Invalid credentials" });
+        }
+        
+        var token = this.tokenService.CreateToken(managedUser);
+        
+        return new AuthResponse
+        {
+            Username = managedUser.UserName,
+            Email = managedUser.Email,
+            Token = token
+        };
+    }
+    
 }

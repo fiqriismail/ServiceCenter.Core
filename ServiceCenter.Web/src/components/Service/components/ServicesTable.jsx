@@ -11,7 +11,13 @@ function ServicesTable({ data }) {
     // fetch data from api
     const fetchServiceData = () => {
         const apiUrl = "http://localhost:5196/api/services";
-        return fetch(apiUrl)
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUb2tlbkZvclRoZUFwaVdpdGhBdXRoIiwianRpIjoiMjYxYjNiMjItY2JiNS00ODFiLTg1YTMtMGFlNjI0YzNiNjljIiwiaWF0IjoiMDQvMDIvMjAyMyAxMTowMjo0NiIsIlVzZXJJZCI6ImE3NzY5YWI1LTEyZjEtNDIyNi1iYzYyLWMxZTRmNzNhZmUyYiIsIlVzZXJuYW1lIjoiZmlxcmlpc21haWwiLCJFbWFpbCI6ImZpcXJpQG1zbi5jb20iLCJleHAiOjE2ODA0MzUxNjYsImlzcyI6ImFwaVdpdGhBdXRoQmFja2VuZCIsImF1ZCI6ImFwaVdpdGhBdXRoQmFja2VuZCJ9.OvWNBJUnu-JBuKVUDDdhvE8tPGVK9HdEb77NaP2Nra8"
+            }
+        }
+        return fetch(apiUrl, requestOptions)
             .then((response) => response.json())
             .then((data) => setService(data));
     }

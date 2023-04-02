@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using ServiceCenter.Web.Api.AuthService;
 using ServiceCenter.Web.Api.Database;
 using ServiceCenter.Web.Api.Services;
 
@@ -35,6 +36,8 @@ builder.Services
     {
         options.TokenValidationParameters = new TokenValidationParameters()
         {
+            ValidIssuer = "apiWithAuthBackend",
+            ValidAudience = "apiWithAuthBackend",
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes("superSecretKey@345")),
         };
@@ -48,6 +51,8 @@ builder.Services.AddCors(
     ));
 
 AddServices(builder);
+
+builder.Services.AddScoped<TokenService, TokenService>();
 
 var app = builder.Build();
 
