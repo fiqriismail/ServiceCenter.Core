@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ServiceCenter.Web.Api.Models;
@@ -16,7 +17,7 @@ public class ServicesController : ControllerBase
         this.serviceRepository = serviceRepository;
     }
     
-    [HttpGet]
+    [HttpGet, Authorize]
     public IActionResult GetAllServices()
     {
         var servicesQuery = this.serviceRepository.SelectServices();
